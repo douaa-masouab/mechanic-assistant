@@ -6,15 +6,18 @@ retourne la trace pour faciliter le debug du déploiement.
 ATTENTION: la trace complète est renvoyée pour débogage. Retirer
 ou limiter cette sortie en production publique.
 """
+from fastapi import FastAPI, Response
+
+# Fournir un `app` au niveau supérieur afin que Vercel détecte l'entrypoint.
+app = FastAPI()
+
 try:
-	from backend.app import app
+	# Remplacer `app` par l'application réelle si l'import fonctionne.
+	from backend.app import app as _backend_app
+	app = _backend_app
 except Exception:
 	import traceback
 	tb = traceback.format_exc()
-
-	from fastapi import FastAPI, Response
-
-	app = FastAPI()
 
 	@app.get("/{full_path:path}", include_in_schema=False)
 	async def _import_error(full_path: str = ""):
