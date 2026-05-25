@@ -1,0 +1,20 @@
+[
+  {
+    "marque": "Toyota",
+    "modele": "Corolla",
+    "annee": 2020,
+    "generation": "E210"
+  },
+  {
+    "marque": "Ford",
+    "modele": "Focus",
+    "annee": 2018,
+    "generation": "Mk4"
+  },
+  {
+    "marque": "Renault",
+    "modele": "Clio",
+    "annee": 2021,
+    "generation": "III"
+  }
+]

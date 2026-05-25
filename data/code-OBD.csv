@@ -1,0 +1,202 @@
+Code;Signification;Systeme
+P0001;Commande de regulateur de volume de carburant - circuit ouvert;Moteur
+P0002;Commande de regulateur de volume de carburant - plage/performance;Moteur
+P0003;Commande de regulateur de volume de carburant - signal bas;Moteur
+P0004;Commande de regulateur de volume de carburant - signal haut;Moteur
+P0010;Actionneur de position d'arbre a cames ligne 1 - panne du circuit;Moteur
+P0011;Position d'arbre a cames ligne 1 - calage excessivement avance;Moteur
+P0012;Position d'arbre a cames ligne 1 - calage excessivement retarde;Moteur
+P0013;Actionneur de position d'arbre a cames ligne 1 - circuit ouvert/court-circuit;Moteur
+P0014;Position d'arbre a cames ligne 1 - calage excessivement avance (echappement);Moteur
+P0015;Position d'arbre a cames ligne 1 - calage excessivement retarde (echappement);Moteur
+P0020;Actionneur de position d'arbre a cames ligne 2 - panne du circuit;Moteur
+P0021;Position d'arbre a cames ligne 2 - calage excessivement avance;Moteur
+P0022;Position d'arbre a cames ligne 2 - calage excessivement retarde;Moteur
+P0030;Circuit de commande du chauffage de la sonde lambda ligne 1 capteur 1;Moteur
+P0031;Circuit de commande du chauffage de la sonde lambda ligne 1 capteur 1 - bas;Moteur
+P0032;Circuit de commande du chauffage de la sonde lambda ligne 1 capteur 1 - haut;Moteur
+P0036;Circuit de commande du chauffage de la sonde lambda ligne 1 capteur 2;Moteur
+P0045;Electrovanne de commande de suralimentation du turbocompresseur - circuit ouvert;Moteur
+P0070;Capteur de temperature de l'air ambiant - panne du circuit;Moteur
+P0087;Rampe de distribution de carburant/pression du systeme - trop basse;Moteur
+P0088;Rampe de distribution de carburant/pression du systeme - trop haute;Moteur
+P0090;Regulateur de pression de carburant 1 - circuit ouvert;Moteur
+P0100;Debitmetre massique ou volumique d'air - panne du circuit;Moteur
+P0101;Debitmetre massique ou volumique d'air - probleme de performance/plage;Moteur
+P0102;Debitmetre massique ou volumique d'air - valeur d'entree trop basse;Moteur
+P0103;Debitmetre massique ou volumique d'air - valeur d'entree trop haute;Moteur
+P0104;Debitmetre massique ou volumique d'air - circuit intermittent;Moteur
+P0105;Capteur de pression absolue du collecteur d'admission - panne du circuit;Moteur
+P0106;Capteur de pression absolue du collecteur d'admission - probleme de performance;Moteur
+P0107;Capteur de pression absolue du collecteur d'admission - valeur basse;Moteur
+P0108;Capteur de pression absolue du collecteur d'admission - valeur haute;Moteur
+P0110;Capteur de temperature de l'air d'admission 1 - panne du circuit;Moteur
+P0111;Capteur de temperature de l'air d'admission 1 - plage/performance;Moteur
+P0112;Capteur de temperature de l'air d'admission 1 - valeur basse;Moteur
+P0113;Capteur de temperature de l'air d'admission 1 - valeur haute;Moteur
+P0115;Capteur de temperature du liquide de refroidissement moteur - panne du circuit;Moteur
+P0116;Capteur de temperature du liquide de refroidissement - performance;Moteur
+P0117;Capteur de temperature du liquide de refroidissement - valeur basse;Moteur
+P0118;Capteur de temperature du liquide de refroidissement - valeur haute;Moteur
+P0120;Capteur de position de papillon/pedale A - panne du circuit;Moteur
+P0121;Capteur de position de papillon/pedale A - probleme de performance/plage;Moteur
+P0122;Capteur de position de papillon/pedale A - valeur basse;Moteur
+P0123;Capteur de position de papillon/pedale A - valeur haute;Moteur
+P0125;Temperature du liquide de refroidissement insuffisante pour controle en boucle fermee;Moteur
+P0130;Sonde lambda ligne 1 capteur 1 - panne du circuit;Moteur
+P0131;Sonde lambda ligne 1 capteur 1 - tension basse;Moteur
+P0132;Sonde lambda ligne 1 capteur 1 - tension haute;Moteur
+P0133;Sonde lambda ligne 1 capteur 1 - reponse lente;Moteur
+P0134;Sonde lambda ligne 1 capteur 1 - pas d'activite detectee;Moteur
+P0135;Chauffage de la sonde lambda ligne 1 capteur 1 - panne du circuit;Moteur
+P0136;Sonde lambda ligne 1 capteur 2 - panne du circuit;Moteur
+P0137;Sonde lambda ligne 1 capteur 2 - tension basse;Moteur
+P0138;Sonde lambda ligne 1 capteur 2 - tension haute;Moteur
+P0141;Chauffage de la sonde lambda ligne 1 capteur 2 - panne du circuit;Moteur
+P0150;Sonde lambda ligne 2 capteur 1 - panne du circuit;Moteur
+P0171;Ajustement du carburant ligne 1 - systeme trop pauvre;Moteur
+P0172;Ajustement du carburant ligne 1 - systeme trop riche;Moteur
+P0173;Ajustement du carburant ligne 2 - panne de reglage du carburant;Moteur
+P0174;Ajustement du carburant ligne 2 - systeme trop pauvre;Moteur
+P0175;Ajustement du carburant ligne 2 - systeme trop riche;Moteur
+P0190;Capteur de pression de la rampe de distribution - panne du circuit;Moteur
+P0191;Capteur de pression de la rampe de distribution - performance/plage;Moteur
+P0192;Capteur de pression de la rampe de distribution - valeur basse;Moteur
+P0193;Capteur de pression de la rampe de distribution - valeur haute;Moteur
+P0200;Injecteur - panne du circuit;Moteur
+P0201;Injecteur cylindre 1 - panne du circuit;Moteur
+P0202;Injecteur cylindre 2 - panne du circuit;Moteur
+P0203;Injecteur cylindre 3 - panne du circuit;Moteur
+P0204;Injecteur cylindre 4 - panne du circuit;Moteur
+P0205;Injecteur cylindre 5 - panne du circuit;Moteur
+P0206;Injecteur cylindre 6 - panne du circuit;Moteur
+P0207;Injecteur cylindre 7 - panne du circuit;Moteur
+P0208;Injecteur cylindre 8 - panne du circuit;Moteur
+P0217;Surchauffe du moteur;Moteur
+P0219;Surregime du moteur;Moteur
+P0220;Capteur de position de papillon/pedale B - panne du circuit;Moteur
+P0222;Capteur de position de papillon/pedale B - valeur basse;Moteur
+P0223;Capteur de position de papillon/pedale B - valeur haute;Moteur
+P0230;Relais de pompe a carburant primaire - panne du circuit;Moteur
+P0234;Condition de suralimentation du moteur - limite depassee (surpression);Moteur
+P0235;Capteur de pression de suralimentation du turbocompresseur A - panne;Moteur
+P0240;Capteur de pression de suralimentation du turbo B - plage/performance;Moteur
+P0251;Pompe d'injection A du rotor/de la came - panne de commande;Moteur
+P0300;Rates d'allumage aleatoires/multiples detectes;Moteur
+P0301;Rates d'allumage detectes - cylindre 1;Moteur
+P0302;Rates d'allumage detectes - cylindre 2;Moteur
+P0303;Rates d'allumage detectes - cylindre 3;Moteur
+P0304;Rates d'allumage detectes - cylindre 4;Moteur
+P0305;Rates d'allumage detectes - cylindre 5;Moteur
+P0306;Rates d'allumage detectes - cylindre 6;Moteur
+P0307;Rates d'allumage detectes - cylindre 7;Moteur
+P0308;Rates d'allumage detectes - cylindre 8;Moteur
+P0320;Circuit d'entree du regime moteur de l'allumage/distributeur - panne;Moteur
+P0325;Capteur de cliquetis 1 ligne 1 - panne du circuit;Moteur
+P0326;Capteur de cliquetis 1 ligne 1 - plage/performance;Moteur
+P0330;Capteur de cliquetis 2 ligne 2 - panne du circuit;Moteur
+P0335;Capteur de position du vilebrequin A - panne du circuit;Moteur
+P0336;Capteur de position du vilebrequin A - plage/performance;Moteur
+P0340;Capteur de position d'arbre a cames A ligne 1 - panne du circuit;Moteur
+P0341;Capteur de position d'arbre a cames A ligne 1 - plage/performance;Moteur
+P0351;Bobine d'allumage A primaire/secondaire - panne du circuit;Moteur
+P0352;Bobine d'allumage B primaire/secondaire - panne du circuit;Moteur
+P0380;Bougies de prechauffage circuit A - panne du circuit;Moteur
+P0400;Systeme de recirculation des gaz d'echappement (EGR) - panne du debit;Moteur
+P0401;Systeme EGR - debit insuffisant detecte;Moteur
+P0402;Systeme EGR - debit excessif detecte;Moteur
+P0403;Systeme EGR - panne du circuit de commande;Moteur
+P0410;Systeme d'injection d'air secondaire - panne;Moteur
+P0420;Systeme de catalyseur ligne 1 - rendement inferieur au seuil;Moteur
+P0430;Systeme de catalyseur ligne 2 - rendement inferieur au seuil;Moteur
+P0440;Systeme de controle des emissions de vapeur (EVAP) - panne;Moteur
+P0441;Systeme EVAP - debit de purge incorrect;Moteur
+P0442;Systeme EVAP - petite fuite detectee;Moteur
+P0443;Vanne de commande de purge EVAP - panne du circuit;Moteur
+P0455;Systeme EVAP - grande fuite detectee;Moteur
+P0460;Capteur de niveau de carburant A - panne du circuit;Moteur
+P0470;Capteur de pression des gaz d'echappement - panne du circuit;Moteur
+P0480;Circuit de commande du ventilateur de refroidissement 1 - panne;Moteur
+P0500;Capteur de vitesse du vehicule A - panne;Moteur
+P0501;Capteur de vitesse du vehicule A - plage/performance;Moteur
+P0505;Systeme de commande du ralenti - panne;Moteur
+P0520;Capteur/pressostat de pression d'huile moteur - panne du circuit;Moteur
+P0551;Capteur de pression de direction assistee - plage/performance;Moteur
+P0560;Tension du systeme - panne;Moteur
+P0562;Tension du systeme - basse;Moteur
+P0563;Tension du systeme - haute;Moteur
+P0601;Module de commande interne - erreur de somme de controle de memoire flash;Moteur
+P0602;Module de commande interne - erreur de programmation;Moteur
+P0603;Module de commande interne - erreur de memoire vive permanente (KAM);Moteur
+P0604;Module de commande interne - erreur de memoire vive (RAM);Moteur
+P0605;Module de commande interne - erreur de memoire morte (ROM);Moteur
+P0606;Processeur de calculateur ECM/PCM - defaut;Moteur
+P0620;Circuit de commande d'alternateur - panne;Moteur
+P0650;Circuit de commande du temoin d'anomalie (MIL/Check Engine) - panne;Moteur
+P0700;Systeme de commande de la transmission (MIL active) - panne;Boite de vitesses
+P0705;Capteur de plage de transmission (PRNDL) - panne du circuit;Boite de vitesses
+P0706;Capteur de plage de transmission - probleme de performance/plage;Boite de vitesses
+P0710;Capteur de temperature du liquide de transmission - panne du circuit;Boite de vitesses
+P0715;Capteur de vitesse d'arbre de turbine/d'entree - panne du circuit;Boite de vitesses
+P0720;Capteur de vitesse d'arbre de sortie - panne du circuit;Boite de vitesses
+P0730;Rapport de demultiplication incorrect;Boite de vitesses
+P0731;Rapport de vitesse 1 incorrect;Boite de vitesses
+P0732;Rapport de vitesse 2 incorrect;Boite de vitesses
+P0733;Rapport de vitesse 3 incorrect;Boite de vitesses
+P0734;Rapport de vitesse 4 incorrect;Boite de vitesses
+P0735;Rapport de vitesse 5 incorrect;Boite de vitesses
+P0740;Circuit d'embrayage de convertisseur de couple - panne;Boite de vitesses
+P0750;Electrovanne de changement de vitesse A - panne;Boite de vitesses
+P0805;Capteur de position d'embrayage - panne du circuit;Boite de vitesses
+P0900;Actuateur d'embrayage - circuit ouvert;Boite de vitesses
+B0001;Commande d'airbag conducteur niveau 1 - circuit ouvert;Carrosserie
+B0002;Commande d'airbag conducteur niveau 1 - signal bas;Carrosserie
+B0003;Commande d'airbag conducteur niveau 1 - signal haut;Carrosserie
+B0010;Commande d'airbag passager niveau 1 - circuit ouvert;Carrosserie
+B0020;Commande d'airbag lateral conducteur - circuit ouvert;Carrosserie
+B0028;Commande d'airbag lateral passager - circuit ouvert;Carrosserie
+B0050;Capteur de boucle de ceinture conducteur - panne du circuit;Carrosserie
+B0052;Capteur de boucle de ceinture passager - panne du circuit;Carrosserie
+B1000;Calculateur d'airbag - defaut interne;Carrosserie
+B1200;Panne du circuit du commutateur de commande de climatisation;Carrosserie
+B1317;Tension de batterie trop haute;Carrosserie
+B1318;Tension de batterie trop basse;Carrosserie
+B1420;Capteur de position de siege conducteur - panne;Carrosserie
+B1600;Signal de cle d'allumage anti-demarrage non recu;Carrosserie
+B1884;Temoin de desactivation d'airbag passager - panne du circuit;Carrosserie
+B1932;Airbag conducteur - resistance du circuit trop haute;Carrosserie
+B1933;Airbag passager - resistance du circuit trop haute;Carrosserie
+B2207;Liaison de donnees de carrosserie - panne de communication;Carrosserie
+B2290;Systeme de classification de l'occupant en panne;Carrosserie
+B2477;Echec de configuration du module de commande;Carrosserie
+C0035;Capteur de vitesse de roue avant gauche - panne du circuit;Chassis
+C0040;Capteur de vitesse de roue avant droite - panne du circuit;Chassis
+C0045;Capteur de vitesse de roue arriere gauche - panne du circuit;Chassis
+C0050;Capteur de vitesse de roue arriere droite - panne du circuit;Chassis
+C0110;Moteur de pompe ABS - panne du circuit;Chassis
+C0121;Circuit de relais de soupape ABS - panne;Chassis
+C0161;Circuit du contacteur de frein - panne;Chassis
+C0200;Capteur de vitesse de roue avant droite - signal incorrect;Chassis
+C0221;Capteur de vitesse de roue avant gauche - signal manquant;Chassis
+C0245;Erreur de frequence du signal de capteur de vitesse de roue;Chassis
+C0300;Panne du moteur d'actionneur de boite de transfert (4WD);Chassis
+C0550;Calculateur ABS/ESP - defaut interne;Chassis
+C0561;Donnees de configuration du systeme de stabilite non valides;Chassis
+C0710;Capteur d'angle de braquage - panne du circuit;Chassis
+C0800;Tension d'alimentation de l'appareil basse;Chassis
+U0001;Bus de communication CAN haute vitesse - panne;Reseau
+U0002;Bus de communication CAN haute vitesse - performance;Reseau
+U0073;Bus de communication du module de commande - desactive;Reseau
+U0100;Perte de communication avec le calculateur moteur (ECM/PCM);Reseau
+U0101;Perte de communication avec le calculateur de transmission (TCM);Reseau
+U0121;Perte de communication avec le module de commande ABS;Reseau
+U0122;Perte de communication avec le module de commande de trajectoire (ESP);Reseau
+U0140;Perte de communication avec le module de carrosserie (BCM);Reseau
+U0146;Perte de communication avec la passerelle A (Gateway);Reseau
+U0155;Perte de communication avec le combiné d'instruments (Tableau de bord);Reseau
+U0164;Perte de communication avec le module de commande de climatisation;Reseau
+U0200;Perte de communication avec la porte A;Reseau
+U0300;Incompatibilite logicielle du module de commande interne;Reseau
+U0401;Donnees invalides recues du calculateur moteur (ECM/PCM);Reseau
+U0402;Donnees invalides recues du calculateur de transmission (TCM);Reseau
+U0415;Donnees invalides recues du module de commande ABS;Reseau

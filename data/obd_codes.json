@@ -1,0 +1,69 @@
+{
+  "P0300": {
+    "description": "Défaillance d’allumage multiple ou manquante (cylindre(s) aléatoire).",
+    "causes": [
+      "Bougies usées",
+      "Fils de bougie endommagés",
+      "Injecteurs défectueux",
+      "Compression basse"
+    ],
+    "etapes": [
+      {
+        "titre": "Vérifier les bougies",
+        "description": "Retirez chaque bougie, inspectez l’usure et remplacez‑les si nécessaire."
+      },
+      {
+        "titre": "Contrôler les fils de bougie",
+        "description": "Assurez‑vous qu’aucun fil n’est corrodé ou mal branché."
+      },
+      {
+        "titre": "Tester la compression",
+        "description": "Effectuez un test de compression sur chaque cylindre pour identifier une perte de pression."
+      }
+    ]
+  },
+  "P0171": {
+    "description": "Mélange air‑carburant trop pauvre (faible densité d’air).",
+    "causes": [
+      "Fuite d’air d’admission",
+      "Capteur d’oxygène défectueux",
+      "Injecteur bloqué"
+    ],
+    "etapes": [
+      {
+        "titre": "Inspecter le système d’admission",
+        "description": "Recherchez des fissures ou des tuyaux desserrés entre le filtre à air et le collecteur d’admission."
+      },
+      {
+        "titre": "Vérifier le capteur d’oxygène",
+        "description": "Nettoyez le capteur ou remplacez‑le s’il donne des valeurs incohérentes."
+      },
+      {
+        "titre": "Contrôler les injecteurs",
+        "description": "Utilisez un nettoyant injecteur ou remplacez les injecteurs suspectés."
+      }
+    ]
+  },
+  "P0420": {
+    "description": "Efficacité du catalyseur en dessous du seuil (catalyseur dégradé).",
+    "causes": [
+      "Catalyseur usé",
+      "Capteur d’oxygène en aval défectueux",
+      "Mauvaise combustion"
+    ],
+    "etapes": [
+      {
+        "titre": "Analyser le capteur d’oxygène en aval",
+        "description": "Mesurez la tension du capteur; remplacez‑le s’il est hors spécifications."
+      },
+      {
+        "titre": "Évaluer le catalyseur",
+        "description": "Si le catalyseur a > 100 000 km, le remplacer est généralement recommandé."
+      },
+      {
+        "titre": "Optimiser la combustion",
+        "description": "Assurez‑vous que les bougies et le système d’alimentation sont en bon état."
+      }
+    ]
+  }
+}

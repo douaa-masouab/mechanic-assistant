@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanic Assistant - Assistant Virtuel de Diagnostic Intelligent</title>
+    <meta name="description" content="Mechanic Assistant est un chatbot premium pour diagnostiquer les codes OBD-II et accompagner les réparations en temps réel.">
+    <link rel="stylesheet" href="assets/style.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="14" width="44" height="36" rx="12" fill="rgba(125,211,252,0.2)" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="22" cy="28" r="5" fill="currentColor"/>
+                        <circle cx="42" cy="28" r="5" fill="currentColor"/>
+                        <rect x="20" y="38" width="24" height="4" rx="2" fill="currentColor"/>
+                        <path d="M18 14L11 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M46 14L53 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <div class="brand-info">
+                    <h2>Mechanic Assistant<span class="online-status-dot"></span></h2>
+                    <p class="app-subtitle">Votre compagnon de diagnostic automobile intelligent</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="btn-user-space" class="btn-user-space" title="Espace utilisateur">
+                    👤 Mon espace
+                </button>
+                <button id="btn-select-vehicle" class="btn-select-vehicle">
+                    🚗 Sélectionner véhicule
+                </button>
+                <button id="btn-reset" class="btn-reset" title="Nouvelle session de diagnostic">
+                    🔄 Nouveau diagnostic
+                </button>
+            </div>
+        </header>
+
+        <div class="content-grid">
+            <section class="hero-panel">
+                <div class="hero-panel-content">
+                    <div class="hero-panel-row">
+                        <div class="hero-panel-label">Mécanique intelligente</div>
+                        <div id="user-badge" class="user-badge">👤 Invité</div>
+                    </div>
+                    <h1>Your Intelligent Chat Companion</h1>
+                    <p>Diagnostic instantané, conseils de réparation et guidage étape par étape dans une interface élégante et fluide.</p>
+                    <div class="hero-actions">
+                        <button id="btn-hero-start" class="btn-hero-start">Commencer</button>
+                        <button id="btn-hero-codes" class="btn-hero-secondary">Voir les codes OBD</button>
+                        <button id="btn-show-history" class="btn-hero-secondary" title="Voir l'historique des diagnostics">
+                            🕘 Historique
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="workspace-panel">
+                <section id="history-panel" class="history-panel hidden">
+                    <div class="history-header">
+                        <div>
+                            <h2>Historique des diagnostics</h2>
+                            <p>Consultez les précédentes conversations enregistrées dans votre navigateur.</p>
+                        </div>
+                    </div>
+                    <div id="history-list" class="history-list"></div>
+                </section>
+
+                <section id="codes-page" class="codes-page hidden">
+                    <div class="codes-header">
+                        <div>
+                            <h2>Dictionnaire de codes OBD-II fréquents</h2>
+                            <p>Sélectionnez un code d'anomalie pour lancer une analyse guidée ou en savoir plus sur sa signification.</p>
+                        </div>
+                    </div>
+                    <div class="codes-grid" id="codes-grid"></div>
+                </section>
+
+                <section id="chat-window" class="chat-window"></section>
+
+                <div class="quick-tags-container">
+                    <button class="quick-tag" data-msg="P0300">P0300</button>
+                    <button class="quick-tag" data-msg="P0171">P0171</button>
+                    <button class="quick-tag" data-msg="P0420">P0420</button>
+                    <button class="quick-tag" data-msg="P0700">P0700</button>
+                    <button class="quick-tag" data-msg="Mon moteur fume noir">🔥 Fumée noire</button>
+                    <button class="quick-tag" data-msg="Le témoin moteur s'allume">⚠️ Témoin moteur</button>
+                    <button class="quick-tag" data-msg="J'ai un problème de démarrage">🔑 Démarrage</button>
+                    <button class="quick-tag" data-msg="Je perds de la puissance">⛽ Perte de puissance</button>
+                </div>
+
+                <form id="chat-form" class="chat-form">
+                    <input type="text" id="chat-input" placeholder="Ex : 'J'ai de la fumée noire', 'P0420', 'Témoin moteur allumé'" autocomplete="off" required />
+                    <button type="submit" id="btn-send">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Sélection du Véhicule -->
+    <div id="vehicle-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sélection du véhicule</h3>
+                <span id="close-modal" class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="select-brand">MARQUE</label>
+                    <select id="select-brand">
+                        <option value="">Choisir une marque</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-model">MODÈLE</label>
+                    <select id="select-model" disabled>
+                        <option value="">Sélectionnez d'abord une marque</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-year">ANNÉE</label>
+                    <select id="select-year" disabled>
+                        <option value="">Choisir l'année</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-fuel">CARBURANT</label>
+                    <select id="select-fuel" disabled>
+                        <option value="">Choisir le carburant</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-modal-cancel" class="btn-secondary">Annuler</button>
+                <button id="btn-modal-confirm" class="btn-primary" disabled>Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Espace Utilisateur -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Espace utilisateur</h3>
+                <span id="close-user-modal" class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="input-user-name">Nom du professionnel</label>
+                    <input type="text" id="input-user-name" placeholder="Ex : Jean Dupont" />
+                </div>
+                <div class="form-group">
+                    <label for="input-user-email">Email / Entreprise</label>
+                    <input type="text" id="input-user-email" placeholder="Ex : contact@garagepro.com" />
+                </div>
+                <div class="form-group">
+                    <label for="input-user-role">Fonction</label>
+                    <input type="text" id="input-user-role" placeholder="Ex : Technicien auto / Chef d'atelier" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-user-cancel" class="btn-secondary">Annuler</button>
+                <button id="btn-user-save" class="btn-primary">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chargement de marked.js pour le support Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/app.js?v=2"></script>
+</body>
+</html>
