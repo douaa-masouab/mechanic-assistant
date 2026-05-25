@@ -3,7 +3,17 @@ import sqlite3
 from datetime import datetime
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-DB_PATH = os.path.join(BASE_DIR, "data", "app.db")
+LOCAL_DB_PATH = os.path.join(BASE_DIR, "data", "app.db")
+
+# Vercel serverless ne permet pas d'écrire dans le dépôt racine.
+# Utiliser un emplacement temporaire en production Vercel.
+if os.environ.get("VERCEL"):
+    tmp_dir = os.environ.get("TMPDIR", "/tmp")
+    DB_PATH = os.path.join(tmp_dir, "app.db")
+else:
+    DB_PATH = LOCAL_DB_PATH
+
+os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
 
 conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 conn.row_factory = sqlite3.Row
