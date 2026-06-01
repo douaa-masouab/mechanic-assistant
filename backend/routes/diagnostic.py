@@ -16,9 +16,6 @@ router = APIRouter(tags=["Diagnostic"])
 
 @router.post("/diagnostiquer", response_model=DiagnosticResponse)
 async def diagnostiquer_endpoint(req: DiagnosticRequest):
-    """Endpoint recevant le code OBD‑II et les informations du véhicule.
-    Retourne description, causes possibles et étapes de réparation.
-    """
     try:
         return diagnostiquer(req)
     except ValueError as exc:
@@ -28,9 +25,6 @@ async def diagnostiquer_endpoint(req: DiagnosticRequest):
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(req: ChatRequest):
-    """Endpoint conversationnel (style ChatGPT) pour diagnostiquer le véhicule pas à pas.
-    Gère l'historique et l'identification intelligente.
-    """
     try:
         return process_chat(req)
     except Exception as exc:

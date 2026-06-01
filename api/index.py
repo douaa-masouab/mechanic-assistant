@@ -1,18 +1,10 @@
-"""
-Entrée Vercel : tenter d'importer l'application FastAPI principale.
-Si l'import échoue (erreur sur Vercel), fournir une app minimale qui
-retourne la trace pour faciliter le debug du déploiement.
-
-ATTENTION: la trace complète est renvoyée pour débogage. Retirer
-ou limiter cette sortie en production publique.
-"""
 from fastapi import FastAPI, Response
 
 # Fournir un `app` au niveau supérieur afin que Vercel détecte l'entrypoint.
 app = FastAPI()
 
 try:
-	# Remplacer `app` par l'application réelle si l'import fonctionne.
+
 	from backend.app import app as _backend_app
 	app = _backend_app
 except Exception:

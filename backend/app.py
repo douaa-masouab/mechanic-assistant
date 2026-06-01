@@ -1,7 +1,6 @@
 import os
 import sys
 
-# Ajouter le dossier racine du projet au chemin Python pour exécuter ce script directement.
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
@@ -21,7 +20,7 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# CORS autorisé pour le front‑end (ajuster en prod)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
