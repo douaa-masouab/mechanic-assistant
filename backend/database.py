@@ -3,7 +3,12 @@ import sqlite3
 import hashlib
 from datetime import datetime
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+cwd = os.getcwd()
+if os.path.exists(os.path.join(cwd, "data")):
+    BASE_DIR = cwd
+else:
+    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
 LOCAL_DB_PATH = os.path.join(BASE_DIR, "data", "app.db")
 
 if os.environ.get("VERCEL"):

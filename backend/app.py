@@ -1,7 +1,12 @@
 import os
 import sys
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+cwd = os.getcwd()
+if os.path.exists(os.path.join(cwd, "backend")):
+    ROOT_DIR = cwd
+else:
+    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
@@ -32,7 +37,7 @@ app.add_middleware(
 app.include_router(diagnostic_router, prefix="/api")
 
 # Servir le frontend depuis le dossier frontend/
-FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+FRONTEND_DIR = os.path.join(ROOT_DIR, "frontend")
 
 @app.get("/")
 async def serve_index():
