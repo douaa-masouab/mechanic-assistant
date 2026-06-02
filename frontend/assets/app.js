@@ -18,7 +18,7 @@ const codesGrid = document.getElementById('codes-grid');
 const btnSelectVehicle = document.getElementById('btn-select-vehicle');
 
 // URL de base du serveur API
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = window.location.origin;
 
 // Session de chat & informations du véhicule en cours
 let chatSessionId = localStorage.getItem('mechanic_assistant_session_id') || null;
