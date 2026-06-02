@@ -93,6 +93,25 @@ def get_all_obd_codes() -> dict:
     return OBD_DB
 
 
+def _completer_solutions(solutions: list[Etape], code: str) -> list[Etape]:
+    """Renforce la liste de solutions pour qu'elle contienne toujours 3 étapes distinctes."""
+    titres_seen = set()
+    final = []
+    for sol in solutions:
+        if sol.titre not in titres_seen:
+            titres_seen.add(sol.titre)
+            final.append(sol)
+    while len(final) < 3:
+        numero = len(final) + 1
+        final.append(
+            Etape(
+                titre=f"Action recommandée {numero}",
+                description=f"Compléter le diagnostic du code {code} par une vérification supplémentaire de l'équipement et des connexions."
+            )
+        )
+    return final[:3]
+
+
 def _diagnostiquer_ia(code: str, marque: str, modele: str, annee: int) -> DiagnosticResponse:
     """Interroge l'API Gemini pour générer un diagnostic complet sous format JSON structuré en français."""
     prompt = f"""
@@ -117,6 +136,10 @@ def _diagnostiquer_ia(code: str, marque: str, modele: str, annee: int) -> Diagno
             {{
                 "titre": "Titre étape 2 en français",
                 "description": "Description détaillée de l'action en français..."
+            }},
+            {{
+                "titre": "Titre étape 3 en français",
+                "description": "Description de la troisième action recommandée en français, claire et structurée."
             }}
         ]
     }}
@@ -142,10 +165,10 @@ def _diagnostiquer_ia(code: str, marque: str, modele: str, annee: int) -> Diagno
     # Parse du JSON
     data = json.loads(text)
     
-    solutions = [
-        Etape(titre=e["titre"], description=e["description"]) 
-        for e in data.get("solutions", [])
-    ]
+    solutions = _completer_solutions(
+        [Etape(titre=e["titre"], description=e["description"]) for e in data.get("solutions", [])],
+        code,
+    )
     
     return DiagnosticResponse(
         code_obd=code,
@@ -161,7 +184,10 @@ def _diagnostic_fallback(code: str, marque: str, modele: str, annee: int) -> Dia
     # Si le code est dans notre mini base statique, on l'utilise
     if code in OBD_DB:
         info = OBD_DB[code]
-        solutions = [Etape(titre=e["titre"], description=e["description"]) for e in info.get("etapes", [])]
+        solutions = _completer_solutions(
+            [Etape(titre=e["titre"], description=e["description"]) for e in info.get("etapes", [])],
+            code,
+        )
         return DiagnosticResponse(
             code_obd=code,
             description=info.get("description", ""),
@@ -211,6 +237,10 @@ def _diagnostic_fallback(code: str, marque: str, modele: str, annee: int) -> Dia
             Etape(
                 titre="Inspecter et nettoyer les capteurs de roue",
                 description="Démontez les roues pour accéder aux capteurs ABS, nettoyez-les avec un chiffon doux pour enlever la poussière de frein."
+            ),
+            Etape(
+                titre="Vérifier les connexions du bus CAN",
+                description="Contrôlez les connecteurs du réseau de communication pour déceler un faux contact ou une oxydation."
             )
         ]
         
@@ -240,7 +270,10 @@ def diagnostiquer(req: DiagnosticRequest) -> DiagnosticResponse:
     # Option A : Le code est connu localement
     if code in OBD_DB:
         info = OBD_DB[code]
-        solutions = [Etape(titre=e["titre"], description=e["description"]) for e in info.get("etapes", [])]
+        solutions = _completer_solutions(
+            [Etape(titre=e["titre"], description=e["description"]) for e in info.get("etapes", [])],
+            code,
+        )
         
         msg = "Diagnostic certifié à partir de notre base locale."
         if not vehicule_certifie:

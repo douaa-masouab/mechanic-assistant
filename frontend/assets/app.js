@@ -1,56 +1,10 @@
-// Base de données locale de véhicules pour le sélecteur dynamique
-const VEHICLE_DATA = {
-    "Toyota": {
-        "models": ["Yaris", "Corolla", "RAV4", "Hilux"],
-        "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        "fuels": ["Essence", "Hybride", "Diesel"]
-    },
-    "Peugeot": {
-        "models": ["208", "308", "2008", "3008", "5008"],
-        "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        "fuels": ["Essence", "Diesel", "Électrique", "Hybride"]
-    },
-    "Renault": {
-        "models": ["Clio", "Captur", "Megane", "Scenic", "Austral"],
-        "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        "fuels": ["Essence", "Diesel", "Hybride", "GPL"]
-    },
-    "Volkswagen": {
-        "models": ["Polo", "Golf", "Tiguan", "Passat", "ID.3", "ID.4"],
-        "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        "fuels": ["Essence", "Diesel", "Électrique", "Hybride"]
-    },
-    "Ford": {
-        "models": ["Fiesta", "Focus", "Kuga", "Puma", "Ranger"],
-        "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        "fuels": ["Essence", "Diesel", "Hybride"]
-    },
-    "BMW": {
-        "models": ["Série 1", "Série 3", "X1", "X3", "i4"],
-        "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        "fuels": ["Essence", "Diesel", "Hybride", "Électrique"]
-    },
-    "Mercedes": {
-        "models": ["Classe A", "Classe C", "GLA", "GLC", "EQA"],
-        "years": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
-        "fuels": ["Essence", "Diesel", "Hybride", "Électrique"]
-    }
-};
-
 // Sélecteurs DOM globaux
 const chatWindow = document.getElementById('chat-window');
 const form = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const btnReset = document.getElementById('btn-reset');
-const btnUserSpace = document.getElementById('btn-user-space');
+const btnLogout = document.getElementById('btn-logout');
 const userBadge = document.getElementById('user-badge');
-const userModal = document.getElementById('user-modal');
-const btnCloseUserModal = document.getElementById('close-user-modal');
-const btnUserCancel = document.getElementById('btn-user-cancel');
-const btnUserSave = document.getElementById('btn-user-save');
-const inputUserName = document.getElementById('input-user-name');
-const inputUserEmail = document.getElementById('input-user-email');
-const inputUserRole = document.getElementById('input-user-role');
 const btnShowHistory = document.getElementById('btn-show-history');
 const btnCloseHistory = document.getElementById('btn-close-history');
 const historyPanel = document.getElementById('history-panel');
@@ -60,17 +14,8 @@ const btnCloseCodes = document.getElementById('btn-close-codes');
 const codesPage = document.getElementById('codes-page');
 const codesGrid = document.getElementById('codes-grid');
 
-// Sélecteurs pour le Modal de véhicule
+// Sélecteur pour le bouton de véhicule
 const btnSelectVehicle = document.getElementById('btn-select-vehicle');
-const vehicleModal = document.getElementById('vehicle-modal');
-const closeModal = document.getElementById('close-modal');
-const btnModalCancel = document.getElementById('btn-modal-cancel');
-const btnModalConfirm = document.getElementById('btn-modal-confirm');
-
-const selectBrand = document.getElementById('select-brand');
-const selectModel = document.getElementById('select-model');
-const selectYear = document.getElementById('select-year');
-const selectFuel = document.getElementById('select-fuel');
 
 // URL de base du serveur API
 const API_BASE_URL = 'http://localhost:8000';
@@ -113,8 +58,7 @@ if (typeof marked !== 'undefined') {
 
 // Initialisation au chargement de la page
 window.addEventListener('DOMContentLoaded', () => {
-    initVehicleSelector();
-    initUserSpace();
+    initPremiumAuth();
     updateVehicleHeaderButton();
     updateUserBadge();
     
@@ -129,8 +73,15 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (btnUserSpace) {
-        btnUserSpace.addEventListener('click', openUserModal);
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                localStorage.removeItem('mechanic_assistant_user_profile');
+                localStorage.removeItem('mechanic_assistant_current_vehicle');
+                localStorage.removeItem('mechanic_assistant_session_id');
+                location.reload();
+            }
+        });
     }
 
     if (btnShowHistory) {
@@ -149,23 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
         btnCloseCodes.addEventListener('click', () => setPage('chat'));
     }
 
-    if (btnCloseUserModal) {
-        btnCloseUserModal.addEventListener('click', closeUserModal);
-    }
 
-    if (btnUserCancel) {
-        btnUserCancel.addEventListener('click', closeUserModal);
-    }
-
-    if (btnUserSave) {
-        btnUserSave.addEventListener('click', saveUserProfile);
-    }
-
-    if (userModal) {
-        userModal.addEventListener('click', (e) => {
-            if (e.target === userModal) closeUserModal();
-        });
-    }
 
     if (codesGrid) {
         codesGrid.addEventListener('click', (e) => {
@@ -207,29 +142,9 @@ function showHistoryPage() {
     loadHistory();
 }
 
-function initUserSpace() {
-    loadUserProfile();
-}
 
-function openUserModal() {
-    if (!userModal) return;
-    loadUserProfile();
-    userModal.style.display = 'flex';
-}
 
-function closeUserModal() {
-    if (!userModal) return;
-    userModal.style.display = 'none';
-}
 
-function loadUserProfile() {
-    const profile = JSON.parse(localStorage.getItem('mechanic_assistant_user_profile')) || { id: null, name: 'Invité', email: '', role: '' };
-    userProfile = profile;
-    if (inputUserName) inputUserName.value = profile.name || '';
-    if (inputUserEmail) inputUserEmail.value = profile.email || '';
-    if (inputUserRole) inputUserRole.value = profile.role || '';
-    updateUserBadge();
-}
 
 async function saveUserProfile() {
     const profile = {
@@ -293,7 +208,8 @@ async function loadHistory() {
         }
     }
 
-    const rawHistory = localStorage.getItem('mechanic_assistant_history');
+    const historyKey = userProfile?.id ? `mechanic_assistant_history_${userProfile.id}` : 'mechanic_assistant_history_guest';
+    const rawHistory = localStorage.getItem(historyKey);
     const entries = rawHistory ? JSON.parse(rawHistory) : [];
     renderHistory(entries);
 }
@@ -335,17 +251,50 @@ function renderHistory(entries) {
                     <p><strong>Requête :</strong> ${title}</p>
                     <p><strong>Réponse :</strong> ${botReply}</p>
                 </div>
-                <button class="history-restore-btn" data-history-id="${entry.id}">Relancer</button>
+                <div class="history-card-actions">
+                    <button class="history-restore-btn" data-history-id="${entry.id}">Relancer</button>
+                    <button class="history-delete-btn" data-history-id="${entry.id}">🗑️ Supprimer</button>
+                </div>
             </div>
         `;
     }).join('');
 
     historyList.querySelectorAll('.history-restore-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const entry = entries.find(item => item.id === btn.getAttribute('data-history-id'));
+            const entry = entries.find(item => String(item.id) === String(btn.getAttribute('data-history-id')));
             if (entry) {
                 setPage('chat');
-                envoyerMessageUtilisateur(entry.user);
+                envoyerMessageUtilisateur(entry.user_message || entry.user);
+            }
+        });
+    });
+
+    historyList.querySelectorAll('.history-delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const entryId = btn.getAttribute('data-history-id');
+            if (confirm('Voulez-vous vraiment supprimer ce diagnostic de votre historique ?')) {
+                if (userProfile?.id) {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/api/user/history/${entryId}?user_id=${userProfile.id}`, {
+                            method: 'DELETE'
+                        });
+                        if (!response.ok) {
+                            throw new Error("Impossible de supprimer de l'historique serveur.");
+                        }
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }
+                
+                const historyKey = userProfile?.id ? `mechanic_assistant_history_${userProfile.id}` : 'mechanic_assistant_history_guest';
+                const rawHistory = localStorage.getItem(historyKey);
+                if (rawHistory) {
+                    let localEntries = JSON.parse(rawHistory);
+                    localEntries = localEntries.filter(item => String(item.id) !== String(entryId));
+                    localStorage.setItem(historyKey, JSON.stringify(localEntries));
+                }
+
+                loadHistory();
             }
         });
     });
@@ -353,7 +302,8 @@ function renderHistory(entries) {
 
 function saveHistoryEntry(userMessage, botReply) {
     if (!userMessage || !botReply) return;
-    const rawHistory = localStorage.getItem('mechanic_assistant_history');
+    const historyKey = userProfile?.id ? `mechanic_assistant_history_${userProfile.id}` : 'mechanic_assistant_history_guest';
+    const rawHistory = localStorage.getItem(historyKey);
     const entries = rawHistory ? JSON.parse(rawHistory) : [];
     const vehicleInfo = currentVehicle ? `${currentVehicle.brand} ${currentVehicle.model} (${currentVehicle.year})` : 'Non précisé';
     const sessionLabel = chatSessionId ? `#${chatSessionId.slice(-6)}` : 'N/A';
@@ -375,7 +325,7 @@ function saveHistoryEntry(userMessage, botReply) {
         entries.length = 40;
     }
 
-    localStorage.setItem('mechanic_assistant_history', JSON.stringify(entries));
+    localStorage.setItem(historyKey, JSON.stringify(entries));
 }
 
 async function loadObdCodes() {
@@ -528,7 +478,7 @@ function parserContenuBot(texte) {
                 <div class="step-time-tag">⏱️ Durée estimée : ${time}</div>
                 <div class="step-actions">
                     <button class="btn-step-resolve btn-action-trigger" data-action="resolve_problem" data-step="${number}" data-title="${title}">Problème résolu</button>
-                    <button class="btn-step-next btn-action-trigger" data-action="next_step" data-step="${number}">Étape suivante</button>
+                    <button class="btn-step-next btn-action-trigger" data-action="next_step" data-step="${number}">Étape terminée</button>
                 </div>
             </div>
         `;
@@ -737,142 +687,292 @@ async function envoyerMessageUtilisateur(texte) {
    LOGIQUE DU SÉLECTEUR DE VÉHICULE (MODAL INTERACTIF)
    ======================================================== */
 
-function initVehicleSelector() {
-    // Charger les marques dans le sélecteur
-    selectBrand.innerHTML = '<option value="">Choisir une marque</option>';
-    Object.keys(VEHICLE_DATA).forEach(brand => {
-        const opt = document.createElement('option');
-        opt.value = brand;
-        opt.textContent = brand;
-        selectBrand.appendChild(opt);
-    });
-
-    // Clic pour ouvrir le modal
-    btnSelectVehicle.addEventListener('click', () => {
-        vehicleModal.style.display = 'flex';
-    });
-
-    // Clic pour fermer
-    closeModal.addEventListener('click', fermerModalVehicule);
-    btnModalCancel.addEventListener('click', fermerModalVehicule);
-
-    // Fermer si clic en dehors
-    window.addEventListener('click', (e) => {
-        if (e.target === vehicleModal) fermerModalVehicule();
-    });
-
-    // Événement : Sélection de la marque
-    selectBrand.addEventListener('change', () => {
-        const brand = selectBrand.value;
-        if (brand) {
-            // Charger les modèles de la marque
-            selectModel.innerHTML = '<option value="">Choisir un modèle</option>';
-            VEHICLE_DATA[brand].models.forEach(model => {
-                const opt = document.createElement('option');
-                opt.value = model;
-                opt.textContent = model;
-                selectModel.appendChild(opt);
-            });
-            selectModel.disabled = false;
-            selectYear.disabled = true;
-            selectFuel.disabled = true;
-        } else {
-            reinitialiserChampsModal();
-        }
-        validerFormulaireModal();
-    });
-
-    // Événement : Sélection du modèle
-    selectModel.addEventListener('change', () => {
-        const brand = selectBrand.value;
-        const model = selectModel.value;
-        if (model) {
-            // Charger les années
-            selectYear.innerHTML = '<option value="">Choisir l\'année</option>';
-            VEHICLE_DATA[brand].years.forEach(year => {
-                const opt = document.createElement('option');
-                opt.value = year;
-                opt.textContent = year;
-                selectYear.appendChild(opt);
-            });
-            selectYear.disabled = false;
-            selectFuel.disabled = true;
-        } else {
-            selectYear.disabled = true;
-            selectFuel.disabled = true;
-        }
-        validerFormulaireModal();
-    });
-
-    // Événement : Sélection de l'année
-    selectYear.addEventListener('change', () => {
-        const brand = selectBrand.value;
-        const year = selectYear.value;
-        if (year) {
-            // Charger les carburants
-            selectFuel.innerHTML = '<option value="">Choisir le carburant</option>';
-            VEHICLE_DATA[brand].fuels.forEach(fuel => {
-                const opt = document.createElement('option');
-                opt.value = fuel;
-                opt.textContent = fuel;
-                selectFuel.appendChild(opt);
-            });
-            selectFuel.disabled = false;
-        } else {
-            selectFuel.disabled = true;
-        }
-        validerFormulaireModal();
-    });
-
-    // Événement : Sélection du carburant
-    selectFuel.addEventListener('change', validerFormulaireModal);
-
-    // Clic Confirmer
-    btnModalConfirm.addEventListener('click', () => {
-        currentVehicle = {
-            brand: selectBrand.value,
-            model: selectModel.value,
-            year: Number(selectYear.value),
-            fuel: selectFuel.value
-        };
-        localStorage.setItem('mechanic_assistant_current_vehicle', JSON.stringify(currentVehicle));
-        
-        // Mettre à jour l'en-tête et notifier le bot de manière transparente
-        updateVehicleHeaderButton();
-        fermerModalVehicule();
-        
-        // Envoyer une notification système invisible pour que le bot connaisse la voiture
-        envoyerMessageUtilisateur(`[NOTIFICATION VÉHICULE] J'ai sélectionné mon véhicule : ${currentVehicle.brand} ${currentVehicle.model} ${currentVehicle.year} (${currentVehicle.fuel}).`);
-    });
-}
-
-function fermerModalVehicule() {
-    vehicleModal.style.display = 'none';
-    reinitialiserChampsModal();
-}
-
-function reinitialiserChampsModal() {
-    selectBrand.value = "";
-    selectModel.innerHTML = '<option value="">Sélectionnez d\'abord une marque</option>';
-    selectModel.disabled = true;
-    selectYear.innerHTML = '<option value="">Choisir l\'année</option>';
-    selectYear.disabled = true;
-    selectFuel.innerHTML = '<option value="">Choisir le carburant</option>';
-    selectFuel.disabled = true;
-    btnModalConfirm.disabled = true;
-}
-
-function validerFormulaireModal() {
-    const fullySelected = selectBrand.value && selectModel.value && selectYear.value && selectFuel.value;
-    btnModalConfirm.disabled = !fullySelected;
-}
-
 function updateVehicleHeaderButton() {
+    if (!btnSelectVehicle) return;
     if (currentVehicle) {
+        btnSelectVehicle.style.display = 'inline-flex';
         btnSelectVehicle.textContent = `🚗 ${currentVehicle.brand} ${currentVehicle.model} (${currentVehicle.year})`;
         btnSelectVehicle.classList.add('selected');
     } else {
-        btnSelectVehicle.textContent = `🚗 Sélectionner véhicule`;
+        btnSelectVehicle.style.display = 'none';
         btnSelectVehicle.classList.remove('selected');
     }
 }
+
+function initPremiumAuth() {
+    const authContainer = document.getElementById('auth-container');
+    const loginSection = document.getElementById('login-section');
+    const plateSection = document.getElementById('plate-section');
+    const container = document.querySelector('.container');
+
+    // Onglets & Panneaux
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const panelLogin = document.getElementById('panel-login');
+    const panelRegister = document.getElementById('panel-register');
+
+    // Connexion
+    const loginForm = document.getElementById('login-form');
+    const loginEmailInput = document.getElementById('login-email');
+    const loginPasswordInput = document.getElementById('login-password');
+    const loginError = document.getElementById('login-error');
+
+    // Inscription
+    const registerForm = document.getElementById('register-form');
+    const registerNameInput = document.getElementById('register-name');
+    const registerEmailInput = document.getElementById('register-email');
+    const registerPasswordInput = document.getElementById('register-password');
+    const registerConfirmInput = document.getElementById('register-confirm');
+    const registerError = document.getElementById('register-error');
+
+    // Immatriculation
+    const plateForm = document.getElementById('plate-form');
+    const plateInput = document.getElementById('plate-input');
+    const plateError = document.getElementById('plate-error');
+    const plateResult = document.getElementById('plate-result');
+
+    const resBrand = document.getElementById('res-brand');
+    const resModel = document.getElementById('res-model');
+    const resYear = document.getElementById('res-year');
+    const resFuel = document.getElementById('res-fuel');
+
+    const btnStartChat = document.getElementById('btn-start-chat');
+
+    // Stockage temporaire du véhicule identifié par la plaque
+    let tempVehicle = null;
+
+    // Basculement des onglets
+    if (tabLogin && tabRegister) {
+        tabLogin.addEventListener('click', () => {
+            tabLogin.classList.add('active');
+            tabRegister.classList.remove('active');
+            panelLogin.classList.remove('hidden');
+            panelRegister.classList.add('hidden');
+        });
+
+        tabRegister.addEventListener('click', () => {
+            tabRegister.classList.add('active');
+            tabLogin.classList.remove('active');
+            panelRegister.classList.remove('hidden');
+            panelLogin.classList.add('hidden');
+        });
+    }
+
+    // Étape 1 : Vérifier si l'utilisateur est déjà connecté dans localStorage
+    const savedProfile = JSON.parse(localStorage.getItem('mechanic_assistant_user_profile'));
+    if (savedProfile && savedProfile.id) {
+        userProfile = savedProfile;
+        updateUserBadge();
+    }
+    // Afficher toujours la première page à l'ouverture et au rafraîchissement.
+    loginSection.classList.remove('hidden');
+    plateSection.classList.add('hidden');
+    authContainer.classList.remove('hidden');
+    container.classList.add('hidden');
+
+    // Gérer la soumission du formulaire de connexion
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = loginEmailInput.value.trim();
+            const password = loginPasswordInput.value.trim();
+
+            if (!email || !password) {
+                showLoginError("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            try {
+                loginError.classList.add('hidden');
+                const btn = document.getElementById('btn-login');
+                btn.disabled = true;
+                btn.textContent = "Connexion en cours...";
+
+                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                btn.disabled = false;
+                btn.textContent = "Se connecter →";
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.detail || "Identifiants incorrects.");
+                }
+
+                const data = await response.json();
+                userProfile = {
+                    id: data.user_id,
+                    name: data.name,
+                    email: data.email,
+                    role: data.role || 'Utilisateur'
+                };
+
+                // Enregistrer dans localStorage
+                localStorage.setItem('mechanic_assistant_user_profile', JSON.stringify(userProfile));
+                updateUserBadge();
+
+                // Transition fluide vers l'écran d'immatriculation
+                loginSection.classList.add('hidden');
+                plateSection.classList.remove('hidden');
+
+            } catch (err) {
+                showLoginError(err.message);
+            }
+        });
+    }
+
+    // Gérer la soumission du formulaire d'inscription
+    if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = registerNameInput.value.trim();
+            const email = registerEmailInput.value.trim();
+            const password = registerPasswordInput.value.trim();
+            const confirmPass = registerConfirmInput.value.trim();
+
+            if (!name || !email || !password || !confirmPass) {
+                showRegisterError("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            if (password !== confirmPass) {
+                showRegisterError("Les mots de passe ne correspondent pas.");
+                return;
+            }
+
+            if (password.length < 4) {
+                showRegisterError("Le mot de passe doit faire au moins 4 caractères.");
+                return;
+            }
+
+            try {
+                registerError.classList.add('hidden');
+                const btn = document.getElementById('btn-register');
+                btn.disabled = true;
+                btn.textContent = "Inscription en cours...";
+
+                const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                btn.disabled = false;
+                btn.textContent = "Créer mon compte ✓";
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.detail || "Erreur lors de l'inscription.");
+                }
+
+                const data = await response.json();
+                userProfile = {
+                    id: data.user_id,
+                    name: data.name,
+                    email: data.email,
+                    role: 'Utilisateur'
+                };
+
+                // Enregistrer dans localStorage
+                localStorage.setItem('mechanic_assistant_user_profile', JSON.stringify(userProfile));
+                updateUserBadge();
+
+                // Transition fluide vers l'écran d'immatriculation
+                loginSection.classList.add('hidden');
+                plateSection.classList.remove('hidden');
+
+            } catch (err) {
+                showRegisterError(err.message);
+            }
+        });
+    }
+
+    // Gérer la soumission du formulaire de recherche de plaque
+    if (plateForm) {
+        plateForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const plate = plateInput.value.trim();
+
+            if (!plate) {
+                showPlateError("Veuillez saisir un numéro d'immatriculation.");
+                return;
+            }
+
+            try {
+                plateError.classList.add('hidden');
+                plateResult.classList.add('hidden');
+                const btn = document.getElementById('btn-search-plate');
+                btn.disabled = true;
+                btn.textContent = "Recherche en cours...";
+
+                const response = await fetch(`${API_BASE_URL}/api/vehicle/plate?matriculation=${encodeURIComponent(plate)}`);
+
+                btn.disabled = false;
+                btn.textContent = "Rechercher le Véhicule";
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.detail || "Véhicule introuvable.");
+                }
+
+                const data = await response.json();
+                tempVehicle = {
+                    brand: data.marque,
+                    model: data.modele,
+                    year: data.annee,
+                    fuel: data.carburant,
+                    matriculation: data.matriculation
+                };
+
+                // Afficher les résultats
+                resBrand.textContent = tempVehicle.brand;
+                resModel.textContent = tempVehicle.model;
+                resYear.textContent = tempVehicle.year;
+                resFuel.textContent = tempVehicle.fuel;
+
+                plateResult.classList.remove('hidden');
+
+            } catch (err) {
+                showPlateError(err.message);
+            }
+        });
+    }
+
+    // Démarrer le diagnostic avec le véhicule trouvé
+    if (btnStartChat) {
+        btnStartChat.addEventListener('click', () => {
+            if (!tempVehicle) return;
+
+            currentVehicle = tempVehicle;
+            localStorage.setItem('mechanic_assistant_current_vehicle', JSON.stringify(currentVehicle));
+
+            updateVehicleHeaderButton();
+
+            // Masquer l'écran d'authentification et afficher l'application
+            authContainer.classList.add('hidden');
+            container.classList.remove('hidden');
+
+            // Démarrer une session propre
+            demarrerNouvelleSession();
+        });
+    }
+
+    function showLoginError(msg) {
+        loginError.textContent = "❌ " + msg;
+        loginError.classList.remove('hidden');
+    }
+
+    function showRegisterError(msg) {
+        registerError.textContent = "❌ " + msg;
+        registerError.classList.remove('hidden');
+    }
+
+    function showPlateError(msg) {
+        plateError.textContent = "❌ " + msg;
+        plateError.classList.remove('hidden');
+    }
+}
+

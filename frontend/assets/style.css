@@ -536,6 +536,25 @@ body {
     transform: translateY(-1px);
 }
 
+.btn-logout {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-logout:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
 /* Fenêtre de Chat */
 .chat-window {
     flex: 1;
@@ -1561,3 +1580,348 @@ body {
         height: 44px;
     }
 }
+
+/* ========================================================
+   STYLES PREMIUM POUR L'AUTHENTIFICATION & IMMATRICULATION
+   ======================================================== */
+
+.auth-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(167, 139, 250, 0.1), transparent 40%),
+                #070a13;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+    font-family: 'Outfit', sans-serif;
+}
+
+.auth-card {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
+                0 0 50px rgba(99, 102, 241, 0.08);
+    overflow: hidden;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    animation: authCardEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes authCardEntrance {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.auth-logo-area {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-logo-icon {
+    color: #818cf8;
+    background: rgba(99, 102, 241, 0.1);
+    padding: 12px;
+    border-radius: 18px;
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    display: inline-flex;
+    margin-bottom: 8px;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+}
+
+.auth-logo-area h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 30%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.auth-subtitle {
+    font-size: 0.8rem;
+    color: rgba(148, 163, 184, 0.9);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 600;
+}
+
+.auth-card-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+}
+
+.auth-desc {
+    font-size: 0.85rem;
+    color: rgba(226, 232, 255, 0.65);
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.form-group-premium label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #818cf8;
+    letter-spacing: 0.08em;
+}
+
+.form-group-premium input {
+    height: 48px;
+    background: rgba(30, 41, 59, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
+    padding: 0 16px;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    transition: var(--transition-smooth);
+}
+
+.form-group-premium input:focus {
+    outline: none;
+    border-color: #818cf8;
+    background: rgba(15, 23, 42, 0.6);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.form-group-premium input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.auth-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.btn-premium {
+    height: 48px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
+}
+
+.btn-premium:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
+    filter: brightness(1.1);
+}
+
+.btn-premium:active {
+    transform: translateY(0);
+}
+
+.btn-premium.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+}
+
+.btn-premium.btn-success:hover {
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.35);
+}
+
+.btn-secondary-premium {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    width: 100%;
+}
+
+.btn-secondary-premium:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.auth-card-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 16px;
+    text-align: center;
+}
+
+.auth-card-footer p {
+    font-size: 0.72rem;
+    color: rgba(226, 232, 255, 0.45);
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Carte de résultat de plaque d'immatriculation */
+.plate-result-card {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 16px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.result-check {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #34d399;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.result-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+    padding-bottom: 4px;
+}
+
+.result-row:last-child {
+    border: none;
+    padding: 0;
+}
+
+.result-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+}
+
+.result-value {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+
+/* Onglets de navigation authentification */
+.auth-tabs {
+    display: flex;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 20px;
+}
+
+.auth-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.auth-tab:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.auth-tab.active {
+    color: #818cf8;
+    border-bottom-color: #818cf8;
+}
+
+/* Bouton de suppression d'historique */
+.history-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.history-delete-btn {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.history-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+

@@ -51,3 +51,33 @@ class UserHistoryResponse(BaseModel):
     vehicle: Optional[str]
     created_at: str
 
+# ─── Auth réelle (app_users) ───────────────────────────────────────────────────
+
+class UserRegisterRequest(BaseModel):
+    name: str = Field(..., description="Prénom ou nom complet")
+    email: str = Field(..., description="Adresse email unique")
+    password: str = Field(..., description="Mot de passe (min 4 caractères)")
+
+class UserLoginRequest(BaseModel):
+    email: str = Field(..., description="Adresse email")
+    password: str = Field(..., description="Mot de passe")
+
+class UserAuthResponse(BaseModel):
+    user_id: int
+    name: str
+    email: str
+
+# ─── Immatriculation ───────────────────────────────────────────────────────────
+
+class VehiclePlateResponse(BaseModel):
+    matriculation: str
+    marque: str
+    modele: str
+    annee: int
+    carburant: str
+
+# ─── Suppression d'historique ──────────────────────────────────────────────────
+
+class UserAuthRequest(BaseModel):
+    name: str = Field(..., description="Nom d'utilisateur (ancien système)")
+    code: str = Field(..., description="Code d'accès/PIN (ancien système)")

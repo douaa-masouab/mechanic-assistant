@@ -180,9 +180,11 @@ def _get_fallback_reply(message: str, history: List[dict]) -> str:
     info = OBD_DB.get(current_obd, {}) if current_obd else {}
     etapes = info.get("etapes", []) if info else []
     
-    is_start_guidage = any(k in msg_lower for k in ["guidage", "guide-moi", "guide moi", "commençons le guidage", "démarrons le guidage", "étape suivante"])
     is_plus_infos = any(k in msg_lower for k in ["plus d'infos", "plus d'informations", "plus de détails", "details", "donne-moi plus", "explique"])
-    is_step_done = any(k in msg_lower for k in ["j'ai effectué", "effectuée", "suivant", "étape suivante", "fait l'étape", "fait l etape", "terminé", "terminée"])
+    is_step_done = any(k in msg_lower for k in ["j'ai effectué", "effectuée", "suivant", "fait l'étape", "fait l etape", "terminé", "terminée"])
+    is_start_guidage = any(k in msg_lower for k in ["guidage", "guide-moi", "guide moi", "commençons le guidage", "démarrons le guidage"]) and not is_step_done
+    if not is_step_done and "étape suivante" in msg_lower:
+        is_step_done = True
     is_resolved = any(k in msg_lower for k in ["résolu", "probleme resolu", "problème résolu", "ça marche", "c'est réparé", "réparé", "résolution", "résoudre"])
     is_direct_solution = any(k in msg_lower for k in ["solution", "immédiat", "maintenant", "vite", "répare", "répare-moi", "urgent", "s'il te plaît"]) and not is_plus_infos
     is_why_question = any(k in msg_lower for k in ["pourquoi", "cause", "causes", "explique", "explication", "comment ça se fait"])
@@ -325,8 +327,8 @@ def process_chat(req: ChatRequest) -> ChatResponse:
     history = SESSIONS_HISTORY[session_id]
     user_message = req.message.strip()
 
-    user_id = None
-    if req.user_email:
+    user_id = req.user_id
+    if not user_id and req.user_email:
         profile_name = (req.user_name or "Invité").strip() or "Invité"
         profile_role = (req.user_role or "").strip()
         user = create_or_update_user(req.user_email.strip().lower(), profile_name, profile_role)
