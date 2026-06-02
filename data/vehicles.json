@@ -1,0 +1,10 @@
+[
+  {"marque": "Peugeot", "modele": "208", "annee": 2020},
+  {"marque": "Renault", "modele": "Clio", "annee": 2018},
+  {"marque": "Volkswagen", "modele": "Golf", "annee": 2021},
+  {"marque": "Toyota", "modele": "Yaris", "annee": 2019},
+  {"marque": "BMW", "modele": "Série 3", "annee": 2022},
+  {"marque": "Peugeot", "modele": "3008", "annee": 2021},
+  {"marque": "Renault", "modele": "Captur", "annee": 2019},
+  {"marque": "Toyota", "modele": "RAV4", "annee": 2020}
+]

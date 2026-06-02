@@ -70,8 +70,11 @@ def _charger_obd_db():
 # Chargement unique au moment de l'import du module
 OBD_DB = _charger_obd_db()
 
-with open(VEHICLES_PATH, "r", encoding="utf-8") as f:
-    VEHICLES_DB = json.load(f)
+try:
+    with open(VEHICLES_PATH, "r", encoding="utf-8") as f:
+        VEHICLES_DB = json.load(f)
+except Exception:
+    VEHICLES_DB = []
 
 # Configuration de Gemini si la clé est fournie
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
