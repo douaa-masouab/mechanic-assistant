@@ -31,6 +31,7 @@ let userProfile = {
     role: storedUserProfile.role || ''
 };
 let lastUserMessage = '';
+let obdCodesEntries = [];
 
 // Messages de bienvenue initiaux
 const WELCOME_MESSAGES = [
@@ -100,6 +101,13 @@ window.addEventListener('DOMContentLoaded', () => {
         btnCloseCodes.addEventListener('click', () => setPage('chat'));
     }
 
+    const btnCodesMore = document.getElementById('btn-codes-more');
+    if (btnCodesMore) {
+        btnCodesMore.addEventListener('click', () => {
+            renderObdCodes(true);
+        });
+    }
+
 
 
     if (codesGrid) {
@@ -132,8 +140,10 @@ function setPage(page) {
 
 async function showCodesPage() {
     setPage('codes');
-    if (codesGrid && codesGrid.children.length === 0) {
+    if (!obdCodesEntries.length) {
         await loadObdCodes();
+    } else {
+        renderObdCodes(false);
     }
 }
 
@@ -338,22 +348,26 @@ async function loadObdCodes() {
             throw new Error('Erreur de chargement des codes');
         }
         const data = await response.json();
-        renderObdCodes(data);
+        obdCodesEntries = Object.entries(data).sort(([a], [b]) => a.localeCompare(b));
+        renderObdCodes(false);
     } catch (error) {
         codesGrid.innerHTML = '<div class="loading-message error">Impossible de charger les codes OBD. Réessayez plus tard.</div>';
         console.error(error);
     }
 }
 
-function renderObdCodes(data) {
+function renderObdCodes(showAll = false) {
     if (!codesGrid) return;
-    const entries = Object.entries(data).sort(([a], [b]) => a.localeCompare(b));
-    if (!entries.length) {
+    if (!obdCodesEntries.length) {
         codesGrid.innerHTML = '<div class="loading-message">Aucun code trouvé.</div>';
+        const moreContainer = document.getElementById('codes-more-container');
+        if (moreContainer) moreContainer.classList.add('hidden');
         return;
     }
 
-    codesGrid.innerHTML = entries.map(([code, info]) => {
+    const entriesToRender = showAll ? obdCodesEntries : obdCodesEntries.slice(0, 6);
+
+    codesGrid.innerHTML = entriesToRender.map(([code, info]) => {
         const systeme = info.systeme || info.type || 'Système inconnu';
         const description = info.description || 'Description non disponible.';
         const label = getSeverityLabel(info);
@@ -370,6 +384,15 @@ function renderObdCodes(data) {
             </div>
         `;
     }).join('');
+
+    const moreContainer = document.getElementById('codes-more-container');
+    if (moreContainer) {
+        if (!showAll && obdCodesEntries.length > 6) {
+            moreContainer.classList.remove('hidden');
+        } else {
+            moreContainer.classList.add('hidden');
+        }
+    }
 }
 
 function getSeverityClass(info) {

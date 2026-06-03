@@ -1340,6 +1340,39 @@ body {
     border: 1px solid rgba(52, 211, 153, 0.2);
 }
 
+.codes-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    margin-bottom: 8px;
+}
+
+.btn-codes-more {
+    background: linear-gradient(135deg, rgba(125, 211, 252, 0.12), rgba(167, 139, 250, 0.12));
+    border: 1px solid rgba(125, 211, 252, 0.25);
+    color: #7dd3fc;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 12px 36px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 8px 24px rgba(125, 211, 252, 0.06);
+}
+
+.btn-codes-more:hover {
+    background: linear-gradient(135deg, rgba(125, 211, 252, 0.22), rgba(167, 139, 250, 0.22));
+    border-color: rgba(125, 211, 252, 0.45);
+    color: #ffffff;
+    box-shadow: 0 12px 30px rgba(125, 211, 252, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-codes-more:active {
+    transform: translateY(0);
+}
+
 .loading-message {
     color: rgba(226, 232, 255, 0.82);
     font-size: 0.95rem;
