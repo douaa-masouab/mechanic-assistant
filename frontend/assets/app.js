@@ -136,6 +136,10 @@ function setPage(page) {
     form.classList.toggle('hidden', !isChat);
     codesPage.classList.toggle('hidden', page !== 'codes');
     historyPanel.classList.toggle('hidden', page !== 'history');
+    // Scroll to top of the chat when switching to it
+    if (isChat) {
+        chatWindow.scrollTop = 0;
+    }
 }
 
 async function showCodesPage() {
@@ -429,6 +433,7 @@ function demarrerNouvelleSession() {
 }
 
 function afficherMessageAccueil() {
+    chatWindow.scrollTop = 0;
     WELCOME_MESSAGES.forEach((msg, idx) => {
         setTimeout(() => {
             ajouterMessage(msg, 'bot');
